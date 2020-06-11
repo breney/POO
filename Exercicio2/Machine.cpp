@@ -7,10 +7,11 @@
 #include <sstream>
 using namespace std;
 
-int Machine::Printarray(int array[], int size){
+int Machine::Printarray(std::array<int,11> array ,int size){
 	for(int i = 0; i < size; i++){
 		if(i == size -1){
-				cout << array[i];
+				cout << array[i] ;
+				continue;
 		}
 			cout << array[i] << ", ";
 		
@@ -31,6 +32,15 @@ double Machine::SString (std::string x){
 	return 0;
 };
 
+float Machine::VerifyNumbers(std::array<int,11> array, int value){
+	 for(int i = 0;i<array.size();i++){
+            if(array[i]==value){
+                //verifica se numeros ja existe na chaves
+                return true;
+            }
+        }
+        return false;
+}
 Machine::Machine(float apostaSM){
 	typeaposta = apostaSM;
 	chaves = "";		
@@ -38,7 +48,11 @@ Machine::Machine(float apostaSM){
 	star = ' ';
 	apostaAP= ' ';
 	check = false;
-	automaticachave[5] = {};
+	automaticachave = {0};
+	propriochave = {0};
+	automaticaestrela = {0} ;
+	proprioestrela = {0};
+	valor= ' ';
 }
 
 float Machine::ApostaType(){
@@ -57,21 +71,23 @@ float Machine::ApostaType(){
 
 
 float Machine::ApostaSimples(){
-	
+			cout << " \n";
 		cout << "-----------Escolheu a Aposta Simples----------- \n";
 				
 				while(SString(chaves) < 1 || SString(chaves) > 5){
 					cout << "Quantas boletins pretende apostar? \n";cin>>chaves;
+					cout << endl;
 				if(SString(chaves) < 1 || SString(chaves) > 5){
 					cout << "So pode fazer ate 5 boletins ! \n";
+					cout << endl;
 						Sleep(1000);
 				}	
 			};
-		cout << " \n";
+	
 				
 				do{
 						cout << "Aposta gerada Automaticamente (Carregue 'A') ou pelo Proprio (Carregue'P') - "; cin>>apostaAP; 
-							cout << " \n";
+						
 							
 							if(toupper(apostaAP) == 'A'){
 								check = true;
@@ -88,57 +104,60 @@ float Machine::ApostaSimples(){
 			
 				switch(toupper(apostaAP)){
 					case 'A':
+						cout << endl;
 						cout << "Chave : ";
 						for(int i=0; i<5;++i ){
-							automaticachave[i] = ((rand()) % 50) + 1;
-							if(i == 4){
-									cout << automaticaestrela[i] << " ";
-									continue;
-								}
-									cout << automaticaestrela[i] << ", ";
+							automaticachave[i] = (rand() % 49) + 1;
 						}
 						
+						Printarray(automaticachave,5);
 						cout << endl;
 						cout << "Estrelas : ";
 						for(int i=0; i<2;++i){
 							automaticaestrela[i] = (rand() % 9) +1;
-								if(i == 1){
-									cout << automaticaestrela[i] << " \n";
-									continue;
-								}
-									cout << automaticaestrela[i] << ", ";
 						}
+						Printarray(automaticaestrela,2);
 						cout << endl;
+					
 						break;
 						
 					case 'P':
-						cout << "Insira 5 chaves - ";
+						cout << endl;
+						cout << "Insira 5 chaves";
+						cout << endl;
 						for(int i = 0; i < 5; i++){
-							cin >> propriochave[i] ;
+							cout << "[" << i + 1 << "]";
+							cin >> valor; 
+							if(VerifyNumbers(propriochave,SString(valor)) == true){
+								cout << "Numero inserido invalido ou repetido!" << endl;
+								i -= 1;
+								continue;
+							}
+							propriochave[i] = SString(valor);
 						}
-						cout << "Insira 2 estrelas - ";
+						cout << endl;
+						cout << "Insira 2 estrelas";
+						cout << endl;
 						for(int i = 0; i < 2; i++){
-							cin >> 	proprioestrela[i];							
+							cout << "[" << i + 1<< "]";
+							cin >> 	valor;
+								if(VerifyNumbers(proprioestrela,SString(valor)) == true){
+								cout << "Numero inserido invalido ou repetido!" << endl;
+								i -= 1;
+								continue;
+							}	
+							proprioestrela[i] = SString(valor);						
 						}
+						cout << endl;
+						
 						cout << "Chave : ";
-						for(int i=0; i<5;++i ){
-							propriochave[i] = (rand() % 50) + 1;
-								if(i == 4){
-									cout << propriochave[i] << " ";
-									continue;
-								}
-							cout << propriochave[i] << ", ";
-						}
-						cout << "\n";
+						Printarray(propriochave,5);
+						propriochave = {0};
+						cout << endl;
+						
 						cout << "Estrelas : ";
-						for(int i=0; i<2;++i){
-							proprioestrela[i] = (rand() % 9) +1;
-								if(i == 1){
-									cout << proprioestrela[i] << " ";
-									continue;
-								}
-									cout << proprioestrela[i] << ", ";
-						}
+						Printarray(proprioestrela,2);
+						proprioestrela = {0};
 						cout << "\n";
 						
 						break;		
@@ -149,12 +168,12 @@ float Machine::ApostaSimples(){
 		
 }
 		cout << " \n";
-				cout << "Boa sorte ! \n";
+		cout << "Boa sorte ! \n";
 				
 }
 
 float Machine::ApostaMultipla(){
-	
+		cout << " \n";
 	cout << "-----------Escolheu a Aposta Multipla----------- \n";
 				while(SString(chaves) < 1 || SString(chaves) > 5){
 					cout << "Quantas boletins pretende apostar? \n";cin>>chaves;
@@ -164,7 +183,7 @@ float Machine::ApostaMultipla(){
 				}
 				
 			}
-										
+					cout << endl;					
 			do{
 				cout << "Aposta gerada Automaticamente (Carregue 'A') ou pelo Proprio (Carregue'P') - "; cin>>apostaAP; 
 				cout << " \n";
@@ -182,6 +201,7 @@ float Machine::ApostaMultipla(){
 					cout << "Escolha entre 5 a 11 quantas chaves quer inserir - ";cin >> key;cout << endl;
 						if(SString(key) < 5 || SString(key) > 11){
 							cout << "So pode fazer entre 5 a 11 chaves ! \n";
+							cout << endl;
 						Sleep(1000);
 				}
 				}
@@ -189,6 +209,7 @@ float Machine::ApostaMultipla(){
 					cout << "Escolha entre 2 a 9 quantas estrelas quer inserir - ";cin >>star;cout << endl;
 						if(SString(star)  < 2 || SString(star)  > 9){
 							cout << "So pode fazer entre 2 a 9 chaves ! \n";
+							
 						Sleep(1000);
 				}
 				}	
@@ -200,60 +221,60 @@ float Machine::ApostaMultipla(){
 								
 				switch(toupper(apostaAP)){
 					case 'A':
+						cout << endl;
 						cout << "Chave : ";
 						for(int i=0; i<SString(key);++i ){
-							automaticachave[i] = (rand() % 50) + 1;
-								if(i == SString(key)-1){
-									cout << automaticachave[i] << " ";
-									continue;
-								}
-							cout << automaticachave[i] << ", ";
+							automaticachave[i] = (rand() % 49) + 1;
 						}
+						Printarray(automaticachave,SString(key));
 						cout << "\n";
 						cout << "Estrelas : ";
 						for(int i=0; i<SString(star) ;++i){
 							automaticaestrela[i] = (rand() % 9) +1;
-								if(i == SString(star) -1){
-									cout << automaticaestrela[i] << " \n";
-									continue;
-								}
-									cout << automaticaestrela[i] << ", ";
 						}
-					
+					    Printarray(automaticaestrela,SString(star));
 						cout << "\n";
 						break;
 					case 'P':
-						cout << "Insira " << SString(key) <<" chaves - ";
-						propriochave = {};
+						
+						cout << "Insira " << SString(key) <<" chaves";
+						cout << endl;
 						for(int i = 0; i < SString(key); i++){
-							cin >> propriochave[i] ;
+							cout << "[" << i + 1 << "]";
+							cin >> valor;
+							if(VerifyNumbers(propriochave,SString(valor)) == true){
+								cout << "Numero inserido invalido ou repetido!" << endl;
+								i -= 1;
+								continue;
+							}	
+							propriochave[i] = SString(valor);	
 						}
-						cout << "Insira "<< SString(star)  << " estrelas - ";
-						proprioestrela = {};
+						cout << endl;
+						cout << "Insira "<< SString(star)  << " estrelas";
+						cout << endl;
+						
 						for(int i = 0; i < SString(star); i++){
-							cin >> 	proprioestrela[i];
+							cout << "[" << i + 1 << "]";
+							cin >> valor;
+							if(VerifyNumbers(proprioestrela,SString(valor)) == true){
+								cout << "Numero inserido invalido ou repetido!" << endl;
+								i -= 1;
+								continue;
+							}	
+							proprioestrela[i] = SString(valor);	
 							
 						}
+						cout << endl;
 						cout << "Chave : ";
-						for(int i=0; i<SString(key);++i ){
-							propriochave[i] = (rand() % 50) + 1;
-								if(i == SString(key)-1){
-									cout << propriochave[i] << " ";
-									continue;
-								}
-							cout << propriochave[i] << ", ";
-						}
-						cout << "\n";
+						Printarray(propriochave,SString(key));
+						propriochave = {0};
+						cout << endl;
+					
 						cout << "Estrelas : ";
-						for(int i=0; i<SString(star) ;++i){
-							proprioestrela[i] = (rand() % 9) +1;
-								if(i == SString(star) -1){
-									cout << proprioestrela[i] << " \n";
-									continue;
-								}
-									cout << proprioestrela[i] << ", ";
-						}
-						cout << "\n";
+						Printarray(proprioestrela,SString(star));
+						proprioestrela = {0};
+						cout << endl;
+						cout << endl;
 					
 						break;
 				}
