@@ -2,7 +2,10 @@
 #include <array>
 using namespace std;
 
+
+//Class Machine onde contem as variaveis e funções que vem do ficheiro "Machine.cpp"
 class Machine {
+	//Variavies Privadas
 	private:
 		char typeaposta;
 		char apostaAP;
@@ -16,7 +19,8 @@ class Machine {
 		std::array <int,11> automaticachave;
 		std::array <int,11> propriochave;
 		std::array <int,11> automaticaestrela ;
-		std::array <int,11> proprioestrela;							
+		std::array <int,11> proprioestrela;		
+	//Variaveis e Funções Publicas					
 	public:
 		Machine(float apostaSM);
 		float ApostaType();	

@@ -1,13 +1,14 @@
 #include <iostream>
 #include <stdlib.h> 
-#include "Aposta.h"
+#include "Aposta.h" //Inlcuir ficheiro "Aposta.h" para que utilizarmos a classe incluida no ficheiro
 
 using namespace std;
 
+//Construtor da classe
 Aposta::Aposta(){
 	validacao = 1;				
 }
-
+//Funcção que verifica se utilizador escolheu Aposta Simples ou Aposta multipla enviando a resposta com argumento para a classe Machine
 float Aposta::VerifyAposta(){
 	
 	cout << "			Bem-vindo ao Euromilhoes \n";

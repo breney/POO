@@ -1,46 +1,13 @@
 #include <iostream>
 #include <stdlib.h> 
 #include <Windows.h>
-#include "Machine.h"
+#include "Machine.h"//Inlcuir ficheiro "Machine.h" para que utilizarmos a classe incluida no ficheiro
 #include <array>
 #include <string>
 #include <sstream>
 using namespace std;
 
-int Machine::Printarray(std::array<int,11> array ,int size){
-	for(int i = 0; i < size; i++){
-		if(i == size -1){
-				cout << array[i] ;
-				continue;
-		}
-			cout << array[i] << ", ";
-		
-	}
-};
-
-double Machine::SString (std::string x){
-	double d;
-	
-        std::stringstream ss(x);
-        if (ss >> d)
-        {
-            if (ss.eof())
-            {  
-                return d;
-            }            
-	}
-	return 0;
-};
-
-float Machine::VerifyNumbers(std::array<int,11> array, int value){
-	 for(int i = 0;i<array.size();i++){
-            if(array[i]==value){
-                //verifica se numeros ja existe na chaves
-                return true;
-            }
-        }
-        return false;
-}
+//Construtor da classe, tendo em conta que tem por argumento que vem da classe Aposta que contem o tipo de aposta
 Machine::Machine(float apostaSM){
 	typeaposta = apostaSM;
 	chaves = "";		
@@ -54,7 +21,43 @@ Machine::Machine(float apostaSM){
 	proprioestrela = {0};
 	valor= ' ';
 }
+//Função para ler arrays
+int Machine::Printarray(std::array<int,11> array ,int size){
+	for(int i = 0; i < size; i++){
+		if(i == size -1){
+				cout << array[i] ;
+				continue;
+		}
+			cout << array[i] << ", ";
+		
+	}
+};
+//Função para passar variaveis string para inteiro
+double Machine::SString (std::string x){
+	double d;
+	
+        std::stringstream ss(x);
+        if (ss >> d)
+        {
+            if (ss.eof())
+            {  
+                return d;
+            }            
+	}
+	return 0;
+};
+//Função que verifica se o numero inserido ja existe no array
+float Machine::VerifyNumbers(std::array<int,11> array, int value){
+	 for(int i = 0;i<array.size();i++){
+            if(array[i]==value){
+                
+                return true;
+            }
+        }
+        return false;
+}
 
+//Função para verificar tipo de aposta enviando para ApostaSimples ou ApostaMultipla
 float Machine::ApostaType(){
 	
 	switch(toupper(typeaposta)) {
@@ -69,7 +72,7 @@ float Machine::ApostaType(){
 }
 
 
-
+//Função que faz toda a logica da Aposta Simples
 float Machine::ApostaSimples(){
 			cout << " \n";
 		cout << "-----------Escolheu a Aposta Simples----------- \n";
@@ -172,6 +175,7 @@ float Machine::ApostaSimples(){
 				
 }
 
+//Função que faz toda a logica da Aposta Multipla
 float Machine::ApostaMultipla(){
 		cout << " \n";
 	cout << "-----------Escolheu a Aposta Multipla----------- \n";

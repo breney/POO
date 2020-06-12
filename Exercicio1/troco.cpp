@@ -2,7 +2,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
-#include "troco.h"
+#include "troco.h" //Inlcuir ficheiro "troco.h" para que utilizarmos a classe incluida no ficheiro
+
 
 using namespace std;
 //Construtor da classe, tendo em conta que tem por argumento que vem da classe pagamento que contem o valor do pagamento

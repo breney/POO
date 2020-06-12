@@ -4,9 +4,10 @@
 
 using namespace std;
 
-//Ficheiro Header
+
 //Class Pagamento onde contem as variaveis e funções que vem do ficheiro "pagamento.cpp"
 class Pagamento {
+	//Variaveis e funções privadas
 	private:
 		float randomnumber;
    		float valorpagar;
@@ -15,6 +16,7 @@ class Pagamento {
 		int check;
 		void PrintArray(std::array <int,7> arr);
 		double SString (std::string x);
+	//Variaveis e funções publicas
 	public:
 		Pagamento();
 		float PedirDinheiro();
